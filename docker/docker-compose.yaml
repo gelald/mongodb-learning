@@ -1,0 +1,34 @@
+version: '3.1'
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27777:27017"
+    restart: always
+    volumes:
+      - $PWD/mongodb/data:/data/db
+    environment:
+      #mongodb的账号密码
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  mongo-express:
+    image: mongo-express:1.0.0-alpha
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8881:8081"
+    environment:
+      #mongodb认证
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
+      ME_CONFIG_MONGODB_AUTH_USERNAME: root
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: root
+      #容器间dns解析
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
+      #mongo-express 主题
+      ME_CONFIG_OPTIONS_EDITORTHEME: rubyblue
+      #网页认证
+      ME_CONFIG_BASICAUTH_USERNAME: mongo
+      ME_CONFIG_BASICAUTH_PASSWORD: mongo

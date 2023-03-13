@@ -1,0 +1,16 @@
+server:
+  port: 9081
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: 1024MB
+      max-file-size: 1024MB
+  data:
+    mongodb:
+      host: localhost
+      port: 27777
+      username: root
+      password: root
+      database: grid_database
+      authentication-database: admin
